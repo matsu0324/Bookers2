@@ -19,15 +19,14 @@
 
 header{
 	color:white;
-	.navbar-left{
-		span{
-			font-size:20px;
-			padding-top:10px;
-		}
-	}
 }
 
-.body{
+.navbar-left span{
+  font-size:20px;
+	padding-top:10px;
+}
+
+body{
 	margin-top:51px;
 }
 
