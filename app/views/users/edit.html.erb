@@ -1,23 +1,22 @@
 <div class="container">
 	<div class="row">
 		<div class="col-xs-3">
-			<h2>User info</h2>
-
-      <%= form_with model:@user, local: true do |f| %>
-
 			<!-- エラーメッセージ表示-->
 			<% if @user.errors.any? %>
 				<div id="error_explanation">
-					<h3><%= pluralize(@user.errors.count, 'error') %> prohibited this obj from being saved:</h3>
+					<h3><%= pluralize(@user.errors.count, "error") %> prohibited this object from being saved:</h3>
 					<ul>
-						<% @user.errors.full_messages.each do |message| %>
-						<li><%= message %></li>
-						<% end %>
+					  <% @user.errors.full_messages.each do |message| %>
+					    <li><%= message %></li>
+					  <% end %>
 					</ul>
 				</div>
 			<% end %>
 			<!-- エラーメッセージ表示-->
 
+			<h2>User info</h2>
+
+            <%= form_with model:@user, local: true do |f| %>
 			<div class="field">
 				<%= f.label :name %>
 				<%= f.text_field :name, class: "name" %>
