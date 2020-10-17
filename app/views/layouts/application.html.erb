@@ -13,8 +13,9 @@
     <%= render 'layouts/header' %>
 
     <div class="container">
-      <p id="notice"><%= notice %></p>
-
+      <% if flash[:notice] %>
+      <p id="notice" style="color: #00ff7f;"><%= notice %></p>
+      <% end %>
     </div>
 
     <%= yield %>
