@@ -19,7 +19,7 @@
 		<%= render 'books/form', book: @book %>
 	  </div>
 	  <div class="col-xs-9">
-	    <h2>Books index</h2>
+	    <h2>Books detail</h2>
 		<!--books一覧 -->
 			<table class="table table-hover table-inverse">
 				<thead>
@@ -41,11 +41,24 @@
 						</td>
 				    	<td><%= link_to book.title, book_path(book), class: "book_#{book.id}" %></td>
 					    <td><%= book.body %></td>
-			   	  </tr>
-				  <% end %>
-			  </tbody>
-	 	  </table>
-		<!--books一覧 -->
+					    <td>
+					    	<% if current_user.already_favorited?(book) %>
+					    	  <%= link_to book_favorites_path(book), method: :delete do %>
+					    	    <i class="fas fa-heart"></i>
+					    	  <% end %>
+					    	<% else %>
+					    	  <%= link_to book_favorites_path(book), method: :post do %>
+					    	    <i class="far fa-heart"></i>
+					    	  <% end %>
+					      <% end %>
+					      <%= book.favorites.count %>
+					    </td>
+					    <td>コメント数:<i class="fa fa-comment"></i><a href="#comments"><%= book.book_comments.count %></a></td>
+				   	  </tr>
+					  <% end %>
+				  </tbody>
+		 	  </table>
+			<!--books一覧 -->
+	    	</div>
 		</div>
-	</div>
-</div>
+     </div>

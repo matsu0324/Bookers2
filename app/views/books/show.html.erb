@@ -19,13 +19,58 @@
 			</td>
 			<td><%= link_to @book.title, book_path(@book) %></td>
 			<td><%= @book.body %></td>
-			<% if @book.user == current_user %>	
+			<td>
+				<% if current_user.already_favorited?(@book) %>
+				  <%= link_to book_favorites_path(@book), method: :delete do %>
+				    <i class="fas fa-heart"></i>
+				  <% end %>
+				<% else %>
+				  <%= link_to book_favorites_path(@book), method: :create do %>
+				    <i class="far fa-heart"></i>
+				  <% end %>
+				<% end %>
+               <%= @book.favorites.count %>
+			</td>
+			<td>コメント数:<i class="fa fa-comment"></i><a href="#comments"><%= @book.book_comments.count %></a></td>
+			<% if @book.user == current_user %>
 				<td><%= link_to "Edit", edit_book_path(@book), class: "btn-sm btn-success edit_book_#{@book.id}" %></td>
 				<td><%= link_to "Destroy", book_path(@book), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn-sm btn-danger destroy_book_#{@book.id}" %></td>
 			<% end %>
 		  </tr>
 		</table>
-
+		<ol>
+		  <% @book.book_comments.each do |book_comment| %>
+		    <li class="comment">
+		      <div class="comment-body bb">
+		        <div class="comment-avatar">
+		          <div class="avatar">
+		            <%= attachment_image_tag(@book.user, :profile_image, :fill, 100, 100, fallback: "no-image-mini.jpg") %><br>
+		          </div>
+		        </div>
+		        <div class="comment-text">
+		          <div class="comment-author clearfix">
+		            <%= link_to user_path(book_comment.user) do %>
+		              <%= book_comment.user.name %>
+		            <% end %>
+		            <span class="comment-meta">
+		              <span class="comment-date"><%= book_comment.created_at.strftime('%Y/%m/%d') %></span>
+		            </span>
+		          </div>
+		          <div class="comment-entry"><%= book_comment.comment %></div>
+		          <% if book_comment.user == current_user %>
+		          <div class="destroy-tag" style="margin-bottom: 10px;">
+		             <%= link_to "destroy", book_book_comment_path(book_comment.book, book_comment), method: :delete, class: "btn btn-danger pull-right", "data-confirm" => "Are you sure？" %>
+		          </div>
+		          <% end %>
+		        </div>
+		      </div>
+		    </li>
+		  <% end %>
+		</ol>
+		<%= form_with(model:[@book, @book_comment], local: true) do |f| %>
+		  <div><%= f.text_area :comment, class: "form-control", placeholder: "コメントをここに" %></div>
+		  <div class="submit-form" style="margin-top: 10px;"><%= f.submit '送信' %></div>
+		<% end %>
 	  </div>
-  </div>
+   </div>
 </div>
