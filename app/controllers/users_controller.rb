@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :ensure_correct_user, only: [:edit, :update]
+  
+  # @users = params[:search].present? ? User.user_search(params[:search]): User.all
 
   def show
     @user = User.find(params[:id])

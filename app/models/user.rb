@@ -17,6 +17,7 @@ class User < ApplicationRecord
   has_many :followings, through: :relationships, source: :followed
   has_many :followers, through: :reverse_of_relationships, source: :follower
 
+# フォロー機能
   def follow(user_id)
     relationships.create(followed_id: user_id)
   end
@@ -29,7 +30,21 @@ class User < ApplicationRecord
     followings.include?(user)
   end
 
+# いいね機能
   def already_favorited?(book)
     self.favorites.exists?(book_id: book.id)
+  end
+
+# 検索機能
+  def self.search_for(content, method)
+    if method == 'perfect'
+      User.where(name: content)
+    elsif method == 'forward'
+      User.where('name LIKE ?', content + '%')
+    elsif method == 'backward'
+      User.where('name LIKE ?', '%' + content)
+    else
+      User.where('name LIKE ?', '%' + content + '%')
+    end
   end
 end
