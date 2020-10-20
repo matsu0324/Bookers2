@@ -1,0 +1,27 @@
+<% book.book_comments.each do |book_comment| %>
+  <li class="comment">
+    <div class="comment-body bb">
+      <div class="comment-avatar">
+        <div class="avatar">
+          <%= attachment_image_tag(book.user, :profile_image, :fill, 100, 100, fallback: "no-image-mini.jpg") %><br>
+        </div>
+      </div>
+      <div class="comment-text">
+        <div class="comment-author clearfix">
+          <%= link_to user_path(book_comment.user) do %>
+            <%= book_comment.user.name %>
+          <% end %>
+          <span class="comment-meta">
+            <span class="comment-date"><%= book_comment.created_at.strftime('%Y/%m/%d') %></span>
+          </span>
+        </div>
+        <div class="comment-entry"><%= book_comment.comment %></div>
+        <% if book_comment.user == current_user %>
+        <div class="destroy-tag" style="margin-bottom: 10px;">
+           <%= link_to "destroy", book_book_comment_path(book_comment.book, book_comment), method: :delete, class: "btn btn-danger pull-right", "data-confirm" => "Are you sure？" %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </li>
+<% end %>
