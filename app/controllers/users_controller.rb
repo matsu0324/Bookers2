@@ -1,16 +1,17 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :ensure_correct_user, only: [:edit, :update]
-  before_action :set_user
 
   # @users = params[:search].present? ? User.user_search(params[:search]): User.all
 
   def create
+    @user = User.new(name: params[:name], email: params[:email],
+    password_digest: params[:password])
     if @user.save #ユーザーのインスタンスが新しく生成されて保存されたら
-      NotificationMailer.send_when_signup(@user).deliver #確認メールを送信
-      redirect_to @user
+      ThanksMailer.greeting(@user).deliver_now #確認メールを送信
+      redirect_to ("/user/#{@user.id}")
     else
-      render 'new'
+      render ('users/new')
     end
   end
 
