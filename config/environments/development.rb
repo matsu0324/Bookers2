@@ -34,14 +34,15 @@ Rails.application.configure do
   # メールの送信に失敗したときにエラーを出す
   config.action_mailer.raise_delivery_errors = true
   # メールの送信方法
-  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.default_url_options = { :host => 'localhost:3000'}
   # 詳細の設定
   config.action_mailer.smtp_settings = {
     port:  587,
     address: 'smtp.gmail.com',
     domain:  'gmail.com',
-    user_name:  '<YOUR EMAIL ADDRESS>',
-    password:  '<YOUR EMAIL PASSWORD>',
+    user_name:  'hoge@gmail.com',
+    password:  'hogehoge',
     authentication:  'login',
     enable_starttls_auto: true
   }
