@@ -1,8 +1,19 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :ensure_correct_user, only: [:edit, :update]
-  
+
   # @users = params[:search].present? ? User.user_search(params[:search]): User.all
+# メール送信機能
+  # def create
+  #   @user = User.new(name: params[:name], email: params[:email],
+  #   password_digest: params[:password])
+  #   if @user.save #ユーザーのインスタンスが新しく生成されて保存されたら
+  #     ThanksMailer.greeting(@user).deliver_now #確認メールを送信
+  #     redirect_to ("/user/#{@user.id}")
+  #   else
+  #     render ('users/new')
+  #   end
+  # end
 
   def show
     @user = User.find(params[:id])
