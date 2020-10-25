@@ -10,11 +10,14 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   attachment :profile_image
-
   has_many :books, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :book_comments, dependent: :destroy
-
+  # チャット機能
+  has_many :chats, dependent: :destroy
+  has_many :user_rooms, dependent: :destroy
+  has_many :rooms, through: :user_rooms
+# フォロー機能アソシエーション
   has_many :reverse_of_relationships, foreign_key: "followed_id", class_name: "Relationship", dependent: :destroy
   has_many :relationships, foreign_key: "follower_id", class_name: "Relationship", dependent: :destroy
   has_many :followings, through: :relationships, source: :followed

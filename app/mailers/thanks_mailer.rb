@@ -1,7 +1,7 @@
 class ThanksMailer < ApplicationMailer
+  # メールのレイアウトを指定するViewが格納されるディレクトリ
   def greeting(user)
-    @greeting = "Thank You"
     @user = user
-    mail to: @user.email, subject: '[Bookers]ご登録ありがとうございます'
+    mail(:subject => "登録完了のお知らせ", to: user.email)
   end
 end
