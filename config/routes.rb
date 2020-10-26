@@ -4,11 +4,13 @@ Rails.application.routes.draw do
   root to: 'homes#top'
   get 'home/about' => 'homes#about'
   get "/search" => 'search#search'
-  devise_for :users
+  devise_for :users, :controllers => {
+    :registrations => 'users/registrations'
+   }
   # チャット機能
   get 'chat/:id' => 'chats#show', as: "chat"
   resources :chats, only: [:create]
-  
+
   resources :users, only: [:show, :index, :edit, :update] do
     resource :relationships, only: [:create, :destroy]
     get 'followings' => 'relationships#followings', as: 'followings'
