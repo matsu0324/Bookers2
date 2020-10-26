@@ -1,5 +1,5 @@
 class ApplicationMailer < ActionMailer::Base
+  default from: "example@fff.com"
   # メーラークラスの実装ファイル。メールごとにメソッドを生成する
-  default from: 'from@example.com'
   layout 'mailer'
 end

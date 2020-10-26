@@ -68,3 +68,4 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'jquery-rails'
 gem 'rename'
 gem 'jp_prefecture'
+gem 'whenever', require: false
