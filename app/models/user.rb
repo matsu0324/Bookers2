@@ -2,8 +2,6 @@ class User < ApplicationRecord
    # 都道府県コードから都道府県名に自動で変換する
   include JpPrefecture
   jp_prefecture :prefecture_code
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   validates :name, presence: true, length: {minimum: 2, maximum: 20}
   validates :introduction, length: {maximum: 50}
   devise :database_authenticatable, :registerable,
