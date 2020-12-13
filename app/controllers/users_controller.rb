@@ -13,15 +13,6 @@ class UsersController < ApplicationController
       render ('users/new')
     end
   end
-  #
-  # def create
-  #   if @user.save
-  #     ThanksMailer.greeting(@user).deliver
-  #     redirect_to @user
-  #   else
-  #     render 'new'
-  #   end
-  # end
 
   def show
     @user = User.find(params[:id])
